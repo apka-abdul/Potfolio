@@ -1,0 +1,930 @@
+/* ============================================
+   GIS & Remote Sensing Portfolio
+   Design System & Styles
+   ============================================ */
+
+/* Import Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* ============================================
+   CSS Custom Properties (Design Tokens)
+   ============================================ */
+:root {
+  /* Colors - Inspired by satellite imagery and cartography */
+  --color-deep-ocean: hsl(220, 40%, 12%);
+  --color-ocean: hsl(220, 35%, 18%);
+  --color-slate: hsl(215, 25%, 27%);
+  --color-terrain: hsl(25, 30%, 45%);
+  --color-vegetation: hsl(145, 25%, 45%);
+  --color-infrared: hsl(15, 60%, 55%);
+  --color-ice: hsl(200, 40%, 85%);
+  --color-cloud: hsl(0, 0%, 95%);
+  --color-text-primary: hsl(0, 0%, 95%);
+  --color-text-secondary: hsl(0, 0%, 75%);
+  --color-text-muted: hsl(0, 0%, 55%);
+  --color-accent: hsl(175, 45%, 55%);
+  --color-accent-warm: hsl(35, 70%, 60%);
+
+  /* Typography */
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Spacing */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 2rem;
+  --space-lg: 4rem;
+  --space-xl: 6rem;
+  --space-2xl: 8rem;
+
+  /* Animation Timing */
+  --timing-fast: 400ms;
+  --timing-medium: 800ms;
+  --timing-slow: 1200ms;
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-gentle: cubic-bezier(0.25, 0.1, 0.25, 1);
+
+  /* Layout */
+  --max-width: 1200px;
+  --border-radius: 8px;
+}
+
+/* ============================================
+   Reset & Base Styles
+   ============================================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: var(--font-body);
+  background: linear-gradient(135deg,
+      hsl(220, 40%, 8%) 0%,
+      hsl(220, 35%, 12%) 25%,
+      hsl(200, 30%, 15%) 50%,
+      hsl(220, 35%, 12%) 75%,
+      hsl(220, 40%, 8%) 100%);
+  background-size: 400% 400%;
+  animation: gradientShift 30s ease infinite;
+  color: var(--color-text-primary);
+  line-height: 1.7;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Animated mesh gradient background */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image:
+    radial-gradient(circle at 20% 50%, rgba(95, 179, 179, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(153, 199, 148, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 20%, rgba(95, 179, 179, 0.12) 0%, transparent 50%),
+    repeating-linear-gradient(0deg,
+      transparent,
+      transparent 80px,
+      rgba(95, 179, 179, 0.04) 80px,
+      rgba(95, 179, 179, 0.04) 81px),
+    repeating-linear-gradient(90deg,
+      transparent,
+      transparent 80px,
+      rgba(95, 179, 179, 0.04) 80px,
+      rgba(95, 179, 179, 0.04) 81px);
+  background-size: 100% 100%, 100% 100%, 100% 100%, 80px 80px, 80px 80px;
+  pointer-events: none;
+  z-index: 1;
+  animation: meshFloat 20s ease-in-out infinite;
+}
+
+/* Floating particles effect (like satellite data points) */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image:
+    radial-gradient(3px 3px at 15% 25%, rgba(95, 179, 179, 0.6), transparent),
+    radial-gradient(2px 2px at 85% 15%, rgba(95, 179, 179, 0.4), transparent),
+    radial-gradient(2px 2px at 60% 70%, rgba(153, 199, 148, 0.5), transparent),
+    radial-gradient(1px 1px at 50% 50%, rgba(95, 179, 179, 0.6), transparent),
+    radial-gradient(2px 2px at 25% 80%, rgba(95, 179, 179, 0.4), transparent),
+    radial-gradient(1px 1px at 80% 10%, rgba(153, 199, 148, 0.3), transparent),
+    radial-gradient(3px 3px at 90% 60%, rgba(95, 179, 179, 0.5), transparent),
+    radial-gradient(1px 1px at 33% 80%, rgba(95, 179, 179, 0.4), transparent),
+    radial-gradient(2px 2px at 70% 40%, rgba(153, 199, 148, 0.4), transparent),
+    radial-gradient(1px 1px at 10% 60%, rgba(95, 179, 179, 0.5), transparent);
+  background-size: 200% 200%;
+  background-position: 0% 0%;
+  pointer-events: none;
+  z-index: 1;
+  animation: particleFloat 25s ease-in-out infinite;
+  opacity: 0.8;
+}
+
+/* ============================================
+   Typography
+   ============================================ */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+h1 {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 700;
+}
+
+h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  margin-bottom: var(--space-md);
+}
+
+h3 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+}
+
+p {
+  font-size: clamp(1rem, 2vw, 1.125rem);
+  color: var(--color-text-secondary);
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  color: var(--color-accent);
+}
+
+/* ============================================
+   Navigation
+   ============================================ */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: var(--space-sm) var(--space-md);
+  background: rgba(15, 20, 30, 0.8);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  transition: background var(--timing-medium) var(--ease-smooth);
+}
+
+nav.scrolled {
+  background: rgba(15, 20, 30, 0.95);
+}
+
+.nav-container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  text-decoration: none;
+  letter-spacing: -0.02em;
+}
+
+.nav-links {
+  display: flex;
+  gap: var(--space-md);
+  list-style: none;
+}
+
+.nav-links a {
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: color var(--timing-fast) var(--ease-smooth);
+  position: relative;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--color-accent);
+  transition: width var(--timing-medium) var(--ease-smooth);
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--color-text-primary);
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+  width: 100%;
+}
+
+/* ============================================
+   Hero Section
+   ============================================ */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding: var(--space-lg) var(--space-md);
+}
+
+.hero-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  opacity: 0.6;
+}
+
+.hero-background img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(0px) brightness(1.1);
+  animation: satelliteScan 15s ease-in-out infinite, earthRotate 60s linear infinite;
+  transform-origin: center center;
+}
+
+.hero-background::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, transparent 0%, rgba(15, 20, 30, 0.4) 100%);
+}
+
+/* Scanning line effect like satellite imagery loading */
+.hero::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(95, 179, 179, 0.8),
+      transparent);
+  animation: scanLine 8s linear infinite;
+  z-index: 3;
+  opacity: 0.5;
+  box-shadow: 0 0 20px rgba(95, 179, 179, 0.6);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: var(--max-width);
+  text-align: center;
+  opacity: 0;
+  animation: fadeInUp var(--timing-slow) var(--ease-gentle) forwards;
+  animation-delay: 300ms;
+}
+
+.hero-subtitle {
+  font-family: var(--font-mono);
+  font-size: clamp(0.875rem, 2vw, 1rem);
+  color: var(--color-accent);
+  margin-bottom: var(--space-sm);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  margin-bottom: var(--space-sm);
+  background: linear-gradient(135deg, var(--color-text-primary), var(--color-accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 30px rgba(95, 179, 179, 0.3));
+}
+
+.hero-description {
+  max-width: 600px;
+  margin: 0 auto var(--space-md);
+  font-size: clamp(1.125rem, 2.5vw, 1.375rem);
+  color: var(--color-text-secondary);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.hero-coordinates {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 0.875rem;
+  color: black;
+  font-weight: bolder;
+  font-style: italic;
+  margin-top: var(--space-md);
+}
+
+/* ============================================
+   Section Styles
+   ============================================ */
+section {
+  padding: var(--space-lg) var(--space-md);
+  position: relative;
+  z-index: 2;
+}
+
+section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(ellipse at top, rgba(95, 179, 179, 0.05) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.section-container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: var(--space-lg);
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity var(--timing-slow) var(--ease-gentle),
+    transform var(--timing-slow) var(--ease-gentle);
+}
+
+.section-header.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  color: var(--color-accent);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-xs);
+}
+
+/* ============================================
+   About Section
+   ============================================ */
+.about-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-lg);
+  align-items: center;
+}
+
+.about-text {
+  opacity: 0;
+  transform: translateX(-30px);
+  transition: opacity var(--timing-slow) var(--ease-gentle),
+    transform var(--timing-slow) var(--ease-gentle);
+}
+
+.about-text.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.about-text p {
+  margin-bottom: var(--space-sm);
+}
+
+.about-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-md);
+  opacity: 0;
+  transform: translateX(30px);
+  transition: opacity var(--timing-slow) var(--ease-gentle),
+    transform var(--timing-slow) var(--ease-gentle);
+  transition-delay: 200ms;
+}
+
+.about-stats.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.stat-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--border-radius);
+  padding: var(--space-md);
+  backdrop-filter: blur(10px);
+  transition: transform var(--timing-medium) var(--ease-smooth),
+    border-color var(--timing-medium) var(--ease-smooth);
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.stat-number {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  line-height: 1;
+  margin-bottom: var(--space-xs);
+}
+
+.stat-label {
+  font-size: 0.95rem;
+  color: var(--color-text-secondary);
+}
+
+/* ============================================
+   Projects Section
+   ============================================ */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
+}
+
+.project-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--border-radius);
+  padding: 0;
+  backdrop-filter: blur(10px);
+  transition: transform var(--timing-medium) var(--ease-smooth),
+    border-color var(--timing-medium) var(--ease-smooth),
+    box-shadow var(--timing-medium) var(--ease-smooth);
+  opacity: 0;
+  transform: translateY(30px);
+  overflow: hidden;
+  position: relative;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.project-image {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  position: relative;
+}
+
+.project-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--timing-slow) var(--ease-smooth);
+}
+
+.project-card:hover .project-image img {
+  transform: scale(1.1);
+}
+
+.project-image::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, transparent 0%, rgba(15, 20, 30, 0.8) 100%);
+  pointer-events: none;
+}
+
+.project-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.project-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  border-color: var(--color-accent);
+  box-shadow: 0 20px 60px rgba(95, 179, 179, 0.3),
+    0 0 30px rgba(95, 179, 179, 0.1);
+}
+
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(95, 179, 179, 0.1),
+      transparent);
+  transition: left 0.8s var(--ease-smooth);
+}
+
+.project-card:hover::before {
+  left: 100%;
+}
+
+.project-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-sm);
+  padding: var(--space-md) var(--space-md) 0 var(--space-md);
+}
+
+.project-icon {
+  font-size: 2rem;
+  opacity: 0.8;
+}
+
+.project-type {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.project-card h3 {
+  margin-bottom: var(--space-xs);
+  font-size: 1.5rem;
+  padding: 0 var(--space-md);
+}
+
+.project-card p {
+  margin-bottom: var(--space-sm);
+  font-size: 0.95rem;
+  padding: 0 var(--space-md);
+}
+
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  margin-top: var(--space-sm);
+  padding: 0 var(--space-md) var(--space-md) var(--space-md);
+}
+
+.tag {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  padding: 0.25rem 0.75rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  color: var(--color-text-secondary);
+  transition: all var(--timing-fast) var(--ease-smooth);
+}
+
+.tag:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--color-text-primary);
+}
+
+/* ============================================
+   Skills Section
+   ============================================ */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
+}
+
+.skill-category {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--border-radius);
+  padding: var(--space-md);
+  backdrop-filter: blur(10px);
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity var(--timing-slow) var(--ease-gentle),
+    transform var(--timing-slow) var(--ease-gentle);
+}
+
+.skill-category.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.skill-category h3 {
+  font-size: 1.25rem;
+  margin-bottom: var(--space-sm);
+  color: var(--color-accent);
+}
+
+.skill-category ul {
+  list-style: none;
+}
+
+.skill-category li {
+  padding: var(--space-xs) 0;
+  color: var(--color-text-secondary);
+  font-size: 0.95rem;
+  position: relative;
+  padding-left: 1.25rem;
+}
+
+.skill-category li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--color-accent);
+}
+
+/* ============================================
+   Contact Section
+   ============================================ */
+.contact-content {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.contact-links {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
+  flex-wrap: wrap;
+}
+
+.contact-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-sm) var(--space-md);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--border-radius);
+  color: var(--color-text-primary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: all var(--timing-medium) var(--ease-smooth);
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.contact-link.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.contact-link:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--color-accent);
+  transform: translateY(-4px);
+}
+
+/* ============================================
+   Footer
+   ============================================ */
+footer {
+  padding: var(--space-lg) var(--space-md);
+  text-align: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  position: relative;
+  z-index: 2;
+}
+
+footer p {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+}
+
+.footer-coordinates {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  margin-top: var(--space-sm);
+}
+
+/* ============================================
+   Animations
+   ============================================ */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes meshFloat {
+
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.7;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes particleFloat {
+  0% {
+    background-position: 0% 0%;
+  }
+
+  50% {
+    background-position: 100% 100%;
+  }
+
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
+@keyframes satelliteScan {
+
+  0%,
+  100% {
+    filter: blur(0px) brightness(1.1) hue-rotate(0deg);
+  }
+
+  50% {
+    filter: blur(0px) brightness(1.2) hue-rotate(5deg);
+  }
+}
+
+@keyframes earthRotate {
+  0% {
+    transform: scale(1) rotate(0deg);
+  }
+
+  50% {
+    transform: scale(1.05) rotate(2deg);
+  }
+
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes scanLine {
+  0% {
+    top: 0;
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 0.3;
+  }
+
+  90% {
+    opacity: 0.3;
+  }
+
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
+@keyframes dataStream {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* ============================================
+   Responsive Design
+   ============================================ */
+@media (max-width: 768px) {
+  :root {
+    --space-lg: 3rem;
+    --space-xl: 4rem;
+  }
+
+  .nav-links {
+    gap: var(--space-sm);
+  }
+
+  .nav-links a {
+    font-size: 0.875rem;
+  }
+
+  .about-content {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+
+  .about-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-links {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+@media (max-width: 480px) {
+  nav {
+    padding: var(--space-sm);
+  }
+
+  .nav-links {
+    gap: var(--space-xs);
+  }
+
+  section {
+    padding: var(--space-lg) var(--space-sm);
+  }
+}
+
+/* ============================================
+   Utility Classes
+   ============================================ */
+.text-gradient {
+  background: linear-gradient(135deg, var(--color-accent), var(--color-accent-warm));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.parallax {
+  transition: transform 0.1s ease-out;
+}

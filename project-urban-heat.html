@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Urban Heat Island Analysis - GIS and Remote Sensing Project using Landsat 8 thermal imagery">
+    <title>Urban Heat Island Analysis | GIS Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .project-detail {
+            min-height: 100vh;
+            padding-top: 100px;
+        }
+
+        .project-hero {
+            position: relative;
+            height: 60vh;
+            overflow: hidden;
+            margin-bottom: var(--space-xl);
+        }
+
+        .project-hero img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .project-hero-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: var(--space-lg) var(--space-md);
+            background: linear-gradient(180deg, transparent 0%, rgba(15, 20, 30, 0.95) 100%);
+        }
+
+        .project-hero-content {
+            max-width: var(--max-width);
+            margin: 0 auto;
+        }
+
+        .project-meta {
+            display: flex;
+            gap: var(--space-md);
+            margin-bottom: var(--space-sm);
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            font-family: var(--font-mono);
+            font-size: 0.875rem;
+            color: var(--color-accent);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .project-content {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 var(--space-md) var(--space-xl);
+        }
+
+        .content-section {
+            margin-bottom: var(--space-lg);
+        }
+
+        .content-section h2 {
+            color: var(--color-accent);
+            margin-bottom: var(--space-md);
+        }
+
+        .content-section h3 {
+            color: var(--color-text-primary);
+            margin: var(--space-md) 0 var(--space-sm);
+        }
+
+        .content-section p {
+            margin-bottom: var(--space-sm);
+            line-height: 1.8;
+        }
+
+        .content-section ul {
+            list-style: none;
+            margin-left: var(--space-md);
+        }
+
+        .content-section li {
+            position: relative;
+            padding-left: var(--space-md);
+            margin-bottom: var(--space-xs);
+            color: var(--color-text-secondary);
+        }
+
+        .content-section li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--color-accent);
+        }
+
+        .tech-stack {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-md);
+            margin-top: var(--space-md);
+        }
+
+        .tech-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--border-radius);
+            padding: var(--space-md);
+            backdrop-filter: blur(10px);
+        }
+
+        .tech-card h4 {
+            color: var(--color-accent);
+            margin-bottom: var(--space-xs);
+            font-size: 1rem;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+            padding: var(--space-sm) var(--space-md);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius);
+            color: var(--color-text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all var(--timing-medium) var(--ease-smooth);
+            margin-bottom: var(--space-md);
+        }
+
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--color-accent);
+            transform: translateX(-4px);
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-md);
+            margin-top: var(--space-md);
+        }
+
+        .result-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--border-radius);
+            padding: var(--space-md);
+            text-align: center;
+        }
+
+        .result-value {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--color-accent);
+            margin-bottom: var(--space-xs);
+        }
+
+        .result-label {
+            color: var(--color-text-secondary);
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">GIS Portfolio</a>
+            <ul class="nav-links">
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#projects">Projects</a></li>
+                <li><a href="index.html#skills">Skills</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Project Detail -->
+    <div class="project-detail">
+        <!-- Project Hero -->
+        <div class="project-hero">
+            <img src="C:/Users/HP/.gemini/antigravity/brain/5ab67856-5029-495a-9b7e-16cfb0bfe01f/project_urban_heat_1767185182899.png"
+                alt="Urban Heat Island Analysis">
+            <div class="project-hero-overlay">
+                <div class="project-hero-content">
+                    <div class="project-meta">
+                        <span class="meta-item">🛰️ Remote Sensing</span>
+                        <span class="meta-item">📅 2024</span>
+                        <span class="meta-item">⏱️ 6 Months</span>
+                    </div>
+                    <h1>Urban Heat Island Analysis</h1>
+                    <p class="hero-description">
+                        Comprehensive thermal analysis of metropolitan areas using Landsat 8 satellite imagery
+                        to identify and map urban heat islands for climate adaptation planning.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Project Content -->
+        <div class="project-content">
+            <a href="index.html#projects" class="back-button">
+                <span>←</span>
+                <span>Back to Projects</span>
+            </a>
+
+            <div class="content-section">
+                <h2>Project Overview</h2>
+                <p>
+                    Urban heat islands (UHIs) are metropolitan areas that experience significantly higher temperatures
+                    than their surrounding rural areas. This phenomenon is primarily caused by human activities and
+                    the modification of land surfaces. This project utilized Landsat 8 thermal infrared data to map
+                    and analyze UHI patterns across major metropolitan regions.
+                </p>
+                <p>
+                    The analysis focused on identifying temperature variations, correlating them with land use patterns,
+                    and providing actionable insights for urban planning and climate adaptation strategies. The project
+                    combined remote sensing techniques with GIS spatial analysis to create comprehensive heat maps and
+                    statistical models.
+                </p>
+            </div>
+
+            <div class="content-section">
+                <h2>Methodology</h2>
+                <h3>Data Acquisition</h3>
+                <ul>
+                    <li>Downloaded Landsat 8 Level-2 surface temperature products from USGS Earth Explorer</li>
+                    <li>Selected cloud-free scenes from summer months (June-August) for maximum UHI effect</li>
+                    <li>Collected auxiliary data: land use/land cover maps, population density, vegetation indices</li>
+                    <li>Gathered meteorological data from local weather stations for validation</li>
+                </ul>
+
+                <h3>Data Processing</h3>
+                <ul>
+                    <li>Atmospheric correction using DOS (Dark Object Subtraction) method</li>
+                    <li>Conversion of digital numbers to land surface temperature (LST) using thermal bands</li>
+                    <li>Calculation of NDVI (Normalized Difference Vegetation Index) for vegetation analysis</li>
+                    <li>Geometric correction and co-registration of multi-temporal datasets</li>
+                </ul>
+
+                <h3>Analysis Techniques</h3>
+                <ul>
+                    <li>Statistical analysis of temperature distributions across different land use types</li>
+                    <li>Spatial autocorrelation analysis using Moran's I to identify hot spot clusters</li>
+                    <li>Regression modeling to correlate LST with NDVI, built-up density, and population</li>
+                    <li>Temporal analysis comparing daytime and nighttime temperature patterns</li>
+                </ul>
+            </div>
+
+            <div class="content-section">
+                <h2>Key Results</h2>
+                <div class="results-grid">
+                    <div class="result-card">
+                        <div class="result-value">8.5°C</div>
+                        <div class="result-label">Average Temperature Difference</div>
+                    </div>
+                    <div class="result-card">
+                        <div class="result-value">15</div>
+                        <div class="result-label">Hot Spot Zones Identified</div>
+                    </div>
+                    <div class="result-card">
+                        <div class="result-value">-0.82</div>
+                        <div class="result-label">LST-NDVI Correlation</div>
+                    </div>
+                    <div class="result-card">
+                        <div class="result-value">450 km²</div>
+                        <div class="result-label">Study Area Coverage</div>
+                    </div>
+                </div>
+                <p style="margin-top: var(--space-md);">
+                    The analysis revealed significant temperature variations across the metropolitan area, with
+                    commercial and industrial zones showing the highest surface temperatures. Areas with higher
+                    vegetation cover demonstrated a strong cooling effect, with temperatures up to 8.5°C lower
+                    than densely built-up areas.
+                </p>
+            </div>
+
+            <div class="content-section">
+                <h2>Technology Stack</h2>
+                <div class="tech-stack">
+                    <div class="tech-card">
+                        <h4>Remote Sensing</h4>
+                        <p>Landsat 8 OLI/TIRS, Thermal Band Analysis, Atmospheric Correction</p>
+                    </div>
+                    <div class="tech-card">
+                        <h4>GIS Software</h4>
+                        <p>QGIS 3.28, ArcGIS Pro, ERDAS Imagine</p>
+                    </div>
+                    <div class="tech-card">
+                        <h4>Programming</h4>
+                        <p>Python (NumPy, Rasterio, GeoPandas), R (Spatial Statistics)</p>
+                    </div>
+                    <div class="tech-card">
+                        <h4>Analysis Tools</h4>
+                        <p>ENVI, Google Earth Engine, Statistical Modeling</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2>Impact & Applications</h2>
+                <p>
+                    The findings from this project have been instrumental in informing urban planning decisions
+                    and climate adaptation strategies. Key applications include:
+                </p>
+                <ul>
+                    <li>Identification of priority areas for urban greening and tree planting initiatives</li>
+                    <li>Guidance for cool roof and cool pavement implementation programs</li>
+                    <li>Input for urban climate models and heat vulnerability assessments</li>
+                    <li>Support for public health interventions during heat wave events</li>
+                    <li>Evidence base for sustainable urban development policies</li>
+                </ul>
+            </div>
+
+            <div class="content-section">
+                <h2>Future Work</h2>
+                <p>
+                    Building on this analysis, future research directions include:
+                </p>
+                <ul>
+                    <li>Integration of high-resolution thermal imagery from aerial surveys</li>
+                    <li>Development of predictive models for UHI intensity under different climate scenarios</li>
+                    <li>Analysis of the relationship between UHI and energy consumption patterns</li>
+                    <li>Creation of real-time monitoring systems using satellite data streams</li>
+                </ul>
+            </div>
+
+            <a href="index.html#projects" class="back-button" style="margin-top: var(--space-lg);">
+                <span>←</span>
+                <span>Back to Projects</span>
+            </a>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 GIS Portfolio. All rights reserved.</p>
+        <p class="footer-coordinates mono">Built with precision and passion for geospatial science</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
